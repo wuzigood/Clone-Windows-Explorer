@@ -8,26 +8,15 @@
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
         <ContextMenu x:Key="ContextMenu">
-            <MenuItem Header="test" Click="menuItem_Click"/>
+            <MenuItem Header="新建文件夹" Click="menuItem_Click"/>
+            <MenuItem Header="新建文件" Click="menuItem_Click"/>
+            <MenuItem Header="删除" Click="menuItem_Click"/>
+            <MenuItem Header="重命名" Click="menuItem_Click"/>
         </ContextMenu>
     </Window.Resources>
     <Grid Name="MyGrid" HorizontalAlignment="Left" Margin="0,0,-0.4,0" Width="794"  ContextMenu="{StaticResource ContextMenu}">
-        <TextBox Height="23" Margin="10,10,11,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <ScrollViewer Margin="0,38,10,10" HorizontalAlignment="Right" Width="774">
-            <WrapPanel>
-                <Button Width="150" Height="150">1</Button>
-                <Button Width="150" Height="150">1</Button>
-                <Button Width="150" Height="150">1</Button>
-                <Button Width="150" Height="150">1</Button>
-                <Button Width="150" Height="150">1</Button>
-                <Button Width="150" Height="150">1</Button>
-                <Button Width="150" Height="150">1</Button>
-                <Button Width="150" Height="150">1</Button>
-                <Button Width="150" Height="150">1</Button>
-                <Button Width="150" Height="150">1</Button>
-                <Button Width="150" Height="150">1</Button>
-                <Button Width="150" Height="150">1</Button>
-            </WrapPanel>
-        </ScrollViewer>
+        <TextBox Name="AddressBar" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="520"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="551,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143"/>
+        <Button Content="Search" Margin="699,10,20,0" VerticalAlignment="Top" Height="23"/>
     </Grid>
 </Window>
