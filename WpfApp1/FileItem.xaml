@@ -4,9 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfApp1"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" Height="128.4" Width="133.6">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="800"/>
+            <ColumnDefinition Width="0*" />
+        </Grid.ColumnDefinitions>
+        <Image  Margin="10,10,676,21" Source="{Binding ImagePath}">
+        </Image>
+        <TextBlock TextAlignment="Center" HorizontalAlignment="Left" Margin="10,112,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="114"/>
     </Grid>
 </UserControl>

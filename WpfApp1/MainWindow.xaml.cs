@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Runtime.InteropServices;
 
 namespace WpfApp1
 {
@@ -21,78 +20,58 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        [DllImport("C:\\Users\\zzk\\source\\repos\\WpfApp1\\Debug\\core.dll", EntryPoint ="Sum", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int Sum(int a, int b);
-
-        [DllImport("C:\\Users\\zzk\\source\\repos\\WpfApp1\\Debug\\core.dll", EntryPoint = "GetCurrentDir", CharSet =CharSet.Unicode,CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr GetCurrentDir();
-
-        private int width = 100;
-        private int height = 100;
+        private List<FileInfo> fileInfos;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            IntPtr intPtr = GetCurrentDir();
-            string currentDir = Marshal.PtrToStringUni(intPtr);
-            AddressBar.Text = currentDir;
+            string currentPath = FileManager.GetCurrentDirectory();
+            AddressBar.Text = currentPath;
+            //FileManager.currentPath = currentPath = "C:";
+            //MessageBox.Show(currentPath);
+
+            FileManager.CSetPath(currentPath);
+
+            fileInfos = FileManager.GetFileInfos();
+            FileItems.ItemsSource = fileInfos;
         }
 
-        private void menuItem_Click(object sender, RoutedEventArgs e)
+        private void FileItems_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MenuItem menuItem = (MenuItem)sender;
-            string val = menuItem.Header as string;
-            switch(val)
+            if(FileItems.SelectedItems.Count == 1)
             {
-                case "新建文件夹":
-                    Add_Folder();
-                    break;
-                case "新建文件":
-                    Add_File();
-                    break;
-                default:
-                    break;
+                FileInfo fileInfo = FileItems.SelectedItems[0] as FileInfo;
+
+                string Name = fileInfo.Name;
+                if (Name == ".")
+                {
+                    // Do Nothing
+                }
+                else if (Name == "..")
+                {
+                    //Name = FileManager.currentPath.TrimEnd("\\");
+                    FileManager.currentPath = FileManager.currentPath.Remove(FileManager.currentPath.LastIndexOf("\\") + 1);
+                    FileManager.currentPath = FileManager.currentPath.TrimEnd('\\');
+                    // Update 
+                    FileManager.SetPath(FileManager.currentPath);
+                    AddressBar.Text = FileManager.currentPath;
+                    fileInfos = FileManager.GetFileInfos();
+                    FileItems.ItemsSource = fileInfos;
+                }
+                else if(fileInfo.IsFolder)
+                {
+                    FileManager.SetPath(FileManager.currentPath + "\\" + Name);
+                    AddressBar.Text = FileManager.currentPath;
+                    fileInfos = FileManager.GetFileInfos();
+                    FileItems.ItemsSource = fileInfos;
+                }
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void Mouse_Enter()
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
 
-        }
-
-        private void Add_Folder()
-        {
-            Button button = new Button();
-            button.Width = width;
-            button.Height = height;
-            button.Visibility = Visibility.Visible;
-            ImageBrush imageBrush = new ImageBrush();
-            imageBrush.ImageSource =
-                new BitmapImage(
-                    new Uri("C:\\Users\\zzk\\source\\repos\\WpfApp1\\WpfApp1\\bin\\Debug\\folder.png")
-                );
-            button.Background = imageBrush;
-            wrapPanel.Children.Add(button);
-        }
-
-        private void Add_File()
-        {
-            Button button = new Button();
-            button.Width = width;
-            button.Height = height;
-            button.Visibility = Visibility.Visible;
-            ImageBrush imageBrush = new ImageBrush();
-            imageBrush.ImageSource =
-                new BitmapImage(
-                    new Uri("C:\\Users\\zzk\\source\\repos\\WpfApp1\\WpfApp1\\bin\\Debug\\document.ico")
-                );
-            button.Background = imageBrush;
-            wrapPanel.Children.Add(button);
         }
     }
 }
