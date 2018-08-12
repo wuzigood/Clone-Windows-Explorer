@@ -68,7 +68,7 @@ namespace WpfApp1
                 }
                 else
                 {
-                    // It is a File, use C# to open the default application
+                    // It is a Common File, use C# to open the default application
                     try
                     {
                         System.Diagnostics.Process.Start(FileManager.currentPath + "\\" + Name);
@@ -80,7 +80,16 @@ namespace WpfApp1
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("blank");
+        }
 
+        private void FileItems_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(FileItems.SelectedItems.Count > 0)
+            {
+                FileItems.SelectedItem = null;
+                FileItems.Focus();
+            }
         }
     }
 }

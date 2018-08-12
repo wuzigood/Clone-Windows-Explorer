@@ -10,7 +10,7 @@
         <TextBox Name="AddressBar" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="520"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="551,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143"/>
         <Button Content="Search" Margin="699,10,0,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Left" Width="75"/>
-        <ListBox  Name="FileItems" Style="{StaticResource ListBoxExplorerStyle}" MouseDoubleClick="FileItems_MouseDoubleClick" Margin="10,38,10,10">
+        <ListBox  Name="FileItems" Style="{StaticResource ListBoxExplorerStyle}" PreviewMouseDown="FileItems_PreviewMouseDown" MouseDoubleClick="FileItems_MouseDoubleClick" Margin="10,38,10,10">
             <ListBox.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="新建文件夹" Click="MenuItem_Click"></MenuItem>

@@ -56,6 +56,8 @@ namespace WpfApp1
 
         public static string currentPath;
 
+        public static List<FileInfo> fileInfos; // = new List<FileInfo>();
+
         public static string GetCurrentDirectory()
         {
             IntPtr path = GetCurrentDir();
@@ -65,7 +67,8 @@ namespace WpfApp1
 
         public static List<FileInfo> GetFileInfos()
         {
-            List<FileInfo> fileInfos = new List<FileInfo>();
+            fileInfos = new List<FileInfo>();
+            fileInfos.Clear();
             GetFirstFile();
             CFileInfo cfileInfo = new CFileInfo();
             while (NextFind(ref cfileInfo))
@@ -109,6 +112,12 @@ namespace WpfApp1
             //MessageBox.Show(path);
             currentPath = path;
             CSetPath(currentPath);
+        }
+
+        public static List<FileInfo> SearchFile(string pattern)
+        {
+            
+            return new List<FileInfo>();
         }
     }
 }
