@@ -66,6 +66,15 @@ namespace WpfApp1
                     fileInfos = FileManager.GetFileInfos();
                     FileItems.ItemsSource = fileInfos;
                 }
+                else
+                {
+                    // It is a File, use C# to open the default application
+                    try
+                    {
+                        System.Diagnostics.Process.Start(FileManager.currentPath + "\\" + Name);
+                    }
+                    catch { }
+                }
             }
         }
 

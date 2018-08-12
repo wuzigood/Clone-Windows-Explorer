@@ -5,13 +5,22 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfApp1"
              mc:Ignorable="d" Height="128.4" Width="133.6">
-    <Grid>
+    <UserControl.Resources>
+        <ContextMenu x:Key="MyContextMenu">
+            <MenuItem Header="重命名" Click="MenuItem_Click"></MenuItem>
+            <MenuItem Header="复制" Click="MenuItem_Click"></MenuItem>
+            <MenuItem Header="剪切" Click="MenuItem_Click"></MenuItem>
+            <MenuItem Header="删除" Click="MenuItem_Click"></MenuItem>
+        </ContextMenu>
+    </UserControl.Resources>
+    <Grid ContextMenu="{StaticResource MyContextMenu}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="800"/>
             <ColumnDefinition Width="0*" />
         </Grid.ColumnDefinitions>
         <Image  Margin="10,10,676,21" Source="{Binding ImagePath}">
         </Image>
-        <TextBlock TextAlignment="Center" HorizontalAlignment="Left" Margin="10,112,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="114"/>
+        <TextBlock Name="FileName" TextAlignment="Center" HorizontalAlignment="Left" Margin="10,112,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="114"/>
+        <TextBox Name="ReNameBox" Visibility="Hidden" KeyUp="ReNameBox_KeyUp" LostFocus="ReNameBox_LostFocus" HorizontalAlignment="Left" Height="16" Margin="10,112,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Width="114"/>
     </Grid>
 </UserControl>
