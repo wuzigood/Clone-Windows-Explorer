@@ -14,14 +14,14 @@ namespace WpfApp1
         /*
          * 这个函数用于测试DLL是否正常可用
          */ 
-        [DllImport("C:\\Users\\zzk\\source\\repos\\WpfApp1\\Debug\\core.dll", EntryPoint = "Sum", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("..\\..\\..\\Debug\\core.dll", EntryPoint = "Sum", CallingConvention = CallingConvention.Cdecl)]
         private static extern int Sum(int a, int b);
 
         /*
          * 返回的是一个地址，将这个指针传给Marshal类调用PtrToString可以获取以这个地址为首的一个字符串。
          * 字符串的内容是当前目录地址。
          */
-        [DllImport("C:\\Users\\zzk\\source\\repos\\WpfApp1\\Debug\\core.dll", EntryPoint = "GetCurrentDir", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("..\\..\\..\\Debug\\core.dll", EntryPoint = "GetCurrentDir", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr GetCurrentDir();
 
         /*
@@ -38,20 +38,20 @@ namespace WpfApp1
         /*
          * 初始化，第一个文件夹一般是当前文件夹 " . " 
          */ 
-        [DllImport("C:\\Users\\zzk\\source\\repos\\WpfApp1\\Debug\\core.dll", EntryPoint = "FirstFind", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("..\\..\\..\\Debug\\core.dll", EntryPoint = "FirstFind", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool FirstFind(ref CFileInfo cfileInfo);
 
         /*
          * 获取下一个。其实这里的调用相当于直接调用windows API。逻辑等同。
          * 这个和上一个函数的作用是传递内容。
          */ 
-        [DllImport("C:\\Users\\zzk\\source\\repos\\WpfApp1\\Debug\\core.dll", EntryPoint = "NextFind", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("..\\..\\..\\Debug\\core.dll", EntryPoint = "NextFind", CallingConvention = CallingConvention.Cdecl)]
         private static extern bool NextFind(ref CFileInfo cfileInfo);
 
         /*
          * 设置路径, public 方法
          */ 
-        [DllImport("C:\\Users\\zzk\\source\\repos\\WpfApp1\\Debug\\core.dll", EntryPoint = "SetPath",  CharSet =CharSet.Unicode,CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("..\\..\\..\\Debug\\core.dll", EntryPoint = "SetPath",  CharSet =CharSet.Unicode,CallingConvention = CallingConvention.Cdecl)]
         public static extern void CSetPath(string val);
 
         public static string currentPath;
