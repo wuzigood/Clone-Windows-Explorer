@@ -54,6 +54,24 @@ namespace WpfApp1
         [DllImport("..\\..\\..\\Debug\\core.dll", EntryPoint = "SetPath",  CharSet =CharSet.Unicode,CallingConvention = CallingConvention.Cdecl)]
         public static extern void CSetPath(string val);
 
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+        public struct SearchFileResult
+        {
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
+            public string Name;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
+            public string Path;
+        };
+
+        [DllImport("..\\..\\..\\Debug\\SearchFile.dll", EntryPoint = "InitSearchFile", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool InitSearchFile();
+
+        [DllImport("..\\..\\..\\Debug\\SearchFile.dll", EntryPoint = "InitFindFile", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void InitFindFile(string val);
+
+        [DllImport("..\\..\\..\\Debug\\SearchFile.dll", EntryPoint = "GetFindFile", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool GetFindFile(ref SearchFileResult searchFileResult);
+
         public static string currentPath;
 
         public static List<FileInfo> fileInfos; // = new List<FileInfo>();
@@ -114,10 +132,13 @@ namespace WpfApp1
             CSetPath(currentPath);
         }
 
-        public static List<FileInfo> SearchFile(string pattern)
+        public static string SearchFile(string pattern)
         {
-            
-            return new List<FileInfo>();
+            InitFindFile(pattern);
+            SearchFileResult searchFileResult = new SearchFileResult();
+            GetFindFile(ref searchFileResult);
+            return searchFileResult.Path;
         }
+
     }
 }

@@ -8,8 +8,8 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid Name="MyGrid" HorizontalAlignment="Left" Margin="0,0,-0.4,0" Width="794">
         <TextBox Name="AddressBar" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="520"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="551,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143"/>
-        <Button Content="Search" Margin="699,10,0,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Left" Width="75"/>
+        <TextBox Name="SearchBar" HorizontalAlignment="Left" Height="23" Margin="551,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143"/>
+        <Button Content="Search" Margin="699,10,0,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Left" Width="75" Click="Button_Click"/>
         <ListBox  Name="FileItems" Style="{StaticResource ListBoxExplorerStyle}" PreviewMouseDown="FileItems_PreviewMouseDown" MouseDoubleClick="FileItems_MouseDoubleClick" Margin="10,38,10,10">
             <ListBox.ContextMenu>
                 <ContextMenu>

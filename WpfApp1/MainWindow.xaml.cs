@@ -28,6 +28,7 @@ namespace WpfApp1
 
             string currentPath = FileManager.GetCurrentDirectory();
             AddressBar.Text = currentPath;
+            this.Title = currentPath;
             //FileManager.currentPath = currentPath = "C:";
             //MessageBox.Show(currentPath);
 
@@ -35,6 +36,8 @@ namespace WpfApp1
 
             fileInfos = FileManager.GetFileInfos();
             FileItems.ItemsSource = fileInfos;
+
+            FileManager.InitSearchFile();
         }
 
         private void FileItems_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -90,6 +93,13 @@ namespace WpfApp1
                 FileItems.SelectedItem = null;
                 FileItems.Focus();
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string Pattern = SearchBar.Text;
+            string Result = FileManager.SearchFile(Pattern);
+            MessageBox.Show(Result);
         }
     }
 }
