@@ -54,7 +54,7 @@ namespace WpfApp1
         [DllImport("..\\..\\..\\Debug\\core.dll", EntryPoint = "SetPath",  CharSet =CharSet.Unicode,CallingConvention = CallingConvention.Cdecl)]
         public static extern void CSetPath(string val);
 
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode, Pack = 1)]
         public struct SearchFileResult
         {
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
@@ -98,11 +98,12 @@ namespace WpfApp1
                 };
                 if (fileInfo.IsFolder)
                 {
-                    fileInfo.ImagePath = new BitmapImage(new Uri("C:\\Users\\zzk\\source\\repos\\WpfApp1\\WpfApp1\\bin\\Debug\\folder1.ico"));
+                    fileInfo.ImagePath = new BitmapImage(new Uri("Image\\folder1.ico", System.UriKind.Relative));
+                    //fileInfo.ImagePath = new BitmapImage();
                 }
                 else
                 {
-                    fileInfo.ImagePath = new BitmapImage(new Uri("C:\\Users\\zzk\\source\\repos\\WpfApp1\\WpfApp1\\bin\\Debug\\document-icon.png"));
+                    fileInfo.ImagePath = new BitmapImage(new Uri("Image\\document-icon.png", System.UriKind.Relative));
                 }
                 fileInfos.Add(fileInfo);
             }
@@ -119,7 +120,7 @@ namespace WpfApp1
                 fileInfo.IsFolder = cfileInfo.IsFolder;
                 if(fileInfo.IsFolder)
                 {
-                    fileInfo.ImagePath = new BitmapImage(new Uri("C:\\Users\\zzk\\source\\repos\\WpfApp1\\WpfApp1\\bin\\Debug\\folder1.ico"));
+                    fileInfo.ImagePath = new BitmapImage(new Uri("Image\\folder1.ico", System.UriKind.Relative));
                 }
             }
             return fileInfo;
@@ -132,13 +133,23 @@ namespace WpfApp1
             CSetPath(currentPath);
         }
 
-        public static string SearchFile(string pattern)
+        public static List<FileInfoItem> SearchFile(string pattern, out int Count)
         {
             InitFindFile(pattern);
-            SearchFileResult searchFileResult = new SearchFileResult();
-            GetFindFile(ref searchFileResult);
-            return searchFileResult.Path;
-        }
 
+            List<FileInfoItem> fileInfoItems = new List<FileInfoItem>();
+            SearchFileResult searchFileResult = new SearchFileResult();
+            int i = 0;
+            while(GetFindFile(ref searchFileResult))
+            {
+                i++;
+                FileInfoItem fileInfoItem = new FileInfoItem();
+                fileInfoItem.Name = searchFileResult.Name;
+                fileInfoItem.Path = searchFileResult.Path;
+                fileInfoItems.Add(fileInfoItem);
+            }
+            Count = i;
+            return fileInfoItems;
+        }
     }
 }

@@ -26,5 +26,6 @@
             </Setter>
 
         </Style>
+        <ResourceDictionary x:Key="Fluent" Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
     </Application.Resources>
 </Application>

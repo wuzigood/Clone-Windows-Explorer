@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,12 +23,16 @@ namespace WpfApp1
     {
         private List<FileInfo> fileInfos;
 
+        BackgroundWorker backgroundWorker = new BackgroundWorker();
+
+        SearchWindow searchWindow = new SearchWindow();
+
         public MainWindow()
         {
             InitializeComponent();
 
             string currentPath = FileManager.GetCurrentDirectory();
-            AddressBar.Text = currentPath;
+            //AddressBar.Text = currentPath;
             this.Title = currentPath;
             //FileManager.currentPath = currentPath = "C:";
             //MessageBox.Show(currentPath);
@@ -37,7 +42,11 @@ namespace WpfApp1
             fileInfos = FileManager.GetFileInfos();
             FileItems.ItemsSource = fileInfos;
 
-            FileManager.InitSearchFile();
+            backgroundWorker.DoWork += DoWork_Handler;
+            backgroundWorker.RunWorkerCompleted += RunWorkerCompleted_Handler;
+            backgroundWorker.RunWorkerAsync();
+
+            searchWindow.Title = "正在初始化...尚未能搜索";
         }
 
         private void FileItems_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -58,14 +67,16 @@ namespace WpfApp1
                     FileManager.currentPath = FileManager.currentPath.TrimEnd('\\');
                     // Update 
                     FileManager.SetPath(FileManager.currentPath);
-                    AddressBar.Text = FileManager.currentPath;
+                    //AddressBar.Text = FileManager.currentPath;
+                    this.Title = FileManager.currentPath;
                     fileInfos = FileManager.GetFileInfos();
                     FileItems.ItemsSource = fileInfos;
                 }
                 else if(fileInfo.IsFolder)
                 {
                     FileManager.SetPath(FileManager.currentPath + "\\" + Name);
-                    AddressBar.Text = FileManager.currentPath;
+                    //AddressBar.Text = FileManager.currentPath;
+                    this.Title = FileManager.currentPath;
                     fileInfos = FileManager.GetFileInfos();
                     FileItems.ItemsSource = fileInfos;
                 }
@@ -95,11 +106,19 @@ namespace WpfApp1
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Search_Click(object sender, RoutedEventArgs e)
         {
-            string Pattern = SearchBar.Text;
-            string Result = FileManager.SearchFile(Pattern);
-            MessageBox.Show(Result);
+            searchWindow.Show();
+        }
+
+        private void DoWork_Handler(object sender, DoWorkEventArgs args)
+        {
+            FileManager.InitSearchFile();
+        }
+
+        private void RunWorkerCompleted_Handler(object sender, RunWorkerCompletedEventArgs args)
+        {
+            searchWindow.Title = "初始化完成";
         }
     }
 }
