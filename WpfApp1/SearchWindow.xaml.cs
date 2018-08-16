@@ -65,10 +65,15 @@ namespace WpfApp1
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {
+        {   
             if(this.Title == "正在初始化...尚未能搜索")
             {
                 MessageBox.Show("正在初始化，请稍后。");
+                return;
+            }
+            if (Pattern.Text.Length == 0)
+            {
+                MessageBox.Show("不能为空");
                 return;
             }
             int Count = 0;

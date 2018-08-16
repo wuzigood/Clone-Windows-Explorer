@@ -72,6 +72,9 @@ namespace WpfApp1
         [DllImport("..\\..\\..\\Debug\\SearchFile.dll", EntryPoint = "GetFindFile", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
         public static extern bool GetFindFile(ref SearchFileResult searchFileResult);
 
+        [DllImport("..\\..\\..\\Debug\\core.dll", EntryPoint = "GetLogicalDrivesNumber", CallingConvention = CallingConvention.Cdecl)]
+        public static extern uint GetLogicalDrivesNumber();
+
         public static string currentPath;
 
         public static List<FileInfo> fileInfos; // = new List<FileInfo>();
@@ -133,6 +136,11 @@ namespace WpfApp1
             CSetPath(currentPath);
         }
 
+        public static void SyncPath()
+        {
+            CSetPath(currentPath);
+        }
+
         public static List<FileInfoItem> SearchFile(string pattern, out int Count)
         {
             InitFindFile(pattern);
@@ -150,6 +158,31 @@ namespace WpfApp1
             }
             Count = i;
             return fileInfoItems;
+        }
+
+        public static List<FileInfo> GetDrives()
+        {
+            fileInfos = new List<FileInfo>();
+            fileInfos.Clear();
+
+            uint DriverNumber = GetLogicalDrivesNumber();
+            uint mask = 1;
+
+            for(int i=0; i<26;i++)
+            {
+                if((DriverNumber & mask) != 0)
+                {
+                    char DriverName = (char)('A' + i);
+                    FileInfo fileInfo = new FileInfo
+                    {
+                        Name = DriverName + ":",
+                        ImagePath = new BitmapImage(new Uri("Image\\HardDisk.ico", System.UriKind.Relative))
+                    };
+                    fileInfos.Add(fileInfo);
+                }
+                mask = mask << 1;
+            }
+            return fileInfos;
         }
     }
 }

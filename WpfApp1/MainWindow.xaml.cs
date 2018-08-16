@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Windows.Controls.Ribbon;
 
 namespace WpfApp1
 {
@@ -27,15 +28,14 @@ namespace WpfApp1
 
         SearchWindow searchWindow = new SearchWindow();
 
+        string currentPath;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            string currentPath = FileManager.GetCurrentDirectory();
-            //AddressBar.Text = currentPath;
+            currentPath = FileManager.GetCurrentDirectory();
             this.Title = currentPath;
-            //FileManager.currentPath = currentPath = "C:";
-            //MessageBox.Show(currentPath);
 
             FileManager.CSetPath(currentPath);
 
@@ -47,6 +47,8 @@ namespace WpfApp1
             backgroundWorker.RunWorkerAsync();
 
             searchWindow.Title = "正在初始化...尚未能搜索";
+
+
         }
 
         private void FileItems_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -56,6 +58,14 @@ namespace WpfApp1
                 FileInfo fileInfo = FileItems.SelectedItems[0] as FileInfo;
 
                 string Name = fileInfo.Name;
+                if(this.Title == "我的电脑")
+                {
+                    FileManager.currentPath = Name;
+                    FileManager.SyncPath();
+                    this.Title = FileManager.currentPath;
+                    fileInfos = FileManager.GetFileInfos();
+                    FileItems.ItemsSource = fileInfos;
+                }
                 if (Name == ".")
                 {
                     // Do Nothing
@@ -119,6 +129,23 @@ namespace WpfApp1
         private void RunWorkerCompleted_Handler(object sender, RunWorkerCompletedEventArgs args)
         {
             searchWindow.Title = "初始化完成";
+        }
+
+        private void InitDriveShow()
+        {
+            uint DriveNumber = FileManager.GetLogicalDrivesNumber();
+        }
+
+        private void MyComputer_Click(object sender, RoutedEventArgs e)
+        {
+            this.Title = "我的电脑";
+            fileInfos = FileManager.GetDrives();
+            FileItems.ItemsSource = fileInfos;
+        }
+
+        private void RibbonApplicationMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

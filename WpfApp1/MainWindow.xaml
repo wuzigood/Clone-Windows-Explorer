@@ -18,11 +18,19 @@
             </ListBox.ContextMenu>
         </ListBox>
         <Custom:Ribbon HorizontalAlignment="Stretch" Height="139" VerticalAlignment="Top"  Margin="0,-23,0,0">
-            <Custom:RibbonTab Header="Home">
-            </Custom:RibbonTab>
-            <Custom:RibbonTab Header="Extra">
+            <Custom:Ribbon.ApplicationMenu>
+                <Custom:RibbonApplicationMenu >
+                    <Custom:RibbonApplicationMenuItem Header="退出" Click="RibbonApplicationMenuItem_Click"/>
+                </Custom:RibbonApplicationMenu>
+            </Custom:Ribbon.ApplicationMenu>
+            <Custom:RibbonTab Name="HomeTab" Header="Home">
                 <Custom:RibbonGroup Margin="0" Width="98">
-                    <Custom:RibbonButton Label="Search" Margin="0,0,-88,-83.4" HorizontalAlignment="Stretch" LargeImageSource="/Image/Search.png" Click="Search_Click"/>
+                    <Custom:RibbonButton Label="我的电脑" Margin="0,0,-88,-83.4" HorizontalAlignment="Stretch" LargeImageSource="/Image/computer.png" Click="MyComputer_Click"/>
+                </Custom:RibbonGroup>
+            </Custom:RibbonTab>
+            <Custom:RibbonTab Name="ExtraTab" Header="Extra">
+                <Custom:RibbonGroup Margin="0" Width="98">
+                    <Custom:RibbonButton Label="搜索" Margin="0,0,-88,-83.4" HorizontalAlignment="Stretch" LargeImageSource="/Image/Search.png" Click="Search_Click"/>
                 </Custom:RibbonGroup>
             </Custom:RibbonTab>
         </Custom:Ribbon>
