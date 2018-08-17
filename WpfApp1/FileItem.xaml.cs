@@ -46,12 +46,19 @@ namespace WpfApp1
                     ReNameBox.Focus();
                     break;
                 case ("复制"):
+                    FileManager.tempPath = FileManager.currentPath + "\\" + FileName.Text;
+                    FileManager.tempFileName = FileName.Text;
+                    FileManager.copyFlag = true;
                     break;
                 case ("剪切"):
-                    break;
-                case ("粘贴"):
+                    FileManager.tempPath = FileManager.currentPath + "\\" + FileName.Text;
+                    FileManager.tempFileName = FileName.Text;
+                    FileManager.copyFlag = false;
                     break;
                 case ("删除"):
+                    FileManager.DeleteFile(FileManager.currentPath + "\\" + FileName.Text);
+                    MainWindow mainwin = Application.Current.MainWindow as MainWindow;
+                    mainwin.UpdateDirectory();
                     break;
                 default:
                     break;
@@ -63,16 +70,18 @@ namespace WpfApp1
             if(e.Key == Key.Enter)
             {
                 ReNameBox.Visibility = Visibility.Hidden;
+                FileManager.RenameFile(FileManager.currentPath + "\\" + FileName.Text, FileManager.currentPath + "\\" + ReNameBox.Text);
                 FileName.Text = ReNameBox.Text;
-                // System Call to rename the file
             }
         }
 
         private void ReNameBox_LostFocus(object sender, RoutedEventArgs e)
         {
             ReNameBox.Visibility = Visibility.Hidden;
+            FileManager.RenameFile(FileManager.currentPath + "\\" + FileName.Text, FileManager.currentPath + "\\" + ReNameBox.Text);
             FileName.Text = ReNameBox.Text;
-            // System Call to rename the file
+            MainWindow mainwin = Application.Current.MainWindow as MainWindow;
+            mainwin.UpdateDirectory();
         }
     }
 }

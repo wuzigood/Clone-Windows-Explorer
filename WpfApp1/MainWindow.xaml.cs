@@ -47,8 +47,19 @@ namespace WpfApp1
             backgroundWorker.RunWorkerAsync();
 
             searchWindow.Title = "正在初始化...尚未能搜索";
+        }
 
+        public void UpdateDirectory()
+        {
+            FileManager.SetPath(FileManager.currentPath);
+            this.Title = FileManager.currentPath;
+            fileInfos = FileManager.GetFileInfos();
+            FileItems.ItemsSource = fileInfos;
+        }
 
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow = this;
         }
 
         private void FileItems_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -77,7 +88,6 @@ namespace WpfApp1
                     FileManager.currentPath = FileManager.currentPath.TrimEnd('\\');
                     // Update 
                     FileManager.SetPath(FileManager.currentPath);
-                    //AddressBar.Text = FileManager.currentPath;
                     this.Title = FileManager.currentPath;
                     fileInfos = FileManager.GetFileInfos();
                     FileItems.ItemsSource = fileInfos;
@@ -104,7 +114,30 @@ namespace WpfApp1
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("blank");
+            MenuItem menuItem = (MenuItem)sender as MenuItem;
+            string header = menuItem.Header.ToString();
+            if(header == "新建文件")
+            {
+                FileManager.NewFile(FileManager.currentPath + "\\新建文件");
+            }
+            else if (header == "新建文件夹")
+            {
+                FileManager.NewFolder(FileManager.currentPath + "\\新建文件夹");
+            }
+            else if(header == "粘贴")
+            {
+                if (FileManager.copyFlag)
+                {
+                    FileManager.DeleteFile(FileManager.currentPath + "\\" + FileManager.tempFileName);
+                    FileManager.CopyFileTo(FileManager.tempPath, FileManager.currentPath + "\\" + FileManager.tempFileName);
+                }
+                else
+                {
+                    FileManager.DeleteFile(FileManager.currentPath + "\\" + FileManager.tempFileName);
+                    FileManager.MoveFileTo(FileManager.tempPath, FileManager.currentPath + "\\" + FileManager.tempFileName);
+                }
+            }
+            UpdateDirectory();
         }
 
         private void FileItems_PreviewMouseDown(object sender, MouseButtonEventArgs e)

@@ -6,14 +6,15 @@
         xmlns:local="clr-namespace:WpfApp1"
         xmlns:Custom="http://schemas.microsoft.com/winfx/2006/xaml/presentation/ribbon" x:Class="WpfApp1.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="656" Width="1120">
+        Title="MainWindow" Height="656" Width="1120" Loaded="MainWindow_Loaded">
     <Grid x:Name="MyGrid" Margin="0,0,-0.4,0" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <ListBox  x:Name="FileItems" Style="{StaticResource ListBoxExplorerStyle}" PreviewMouseDown="FileItems_PreviewMouseDown" MouseDoubleClick="FileItems_MouseDoubleClick" Margin="10,121,10,25.4">
             <ListBox.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="新建文件夹" Click="MenuItem_Click"/>
-                    <MenuItem Header="新建文件" Click="MenuItem_Click"/>
+                    <MenuItem Header="刷新" Click="MenuItem_Click"/>
                     <MenuItem Header="粘贴" Click="MenuItem_Click"/>
+                    <MenuItem Header="新建文件" Click="MenuItem_Click"/>
+                    <MenuItem Header="新建文件夹" Click="MenuItem_Click"/>
                 </ContextMenu>
             </ListBox.ContextMenu>
         </ListBox>

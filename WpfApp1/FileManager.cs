@@ -75,7 +75,34 @@ namespace WpfApp1
         [DllImport("..\\..\\..\\Debug\\core.dll", EntryPoint = "GetLogicalDrivesNumber", CallingConvention = CallingConvention.Cdecl)]
         public static extern uint GetLogicalDrivesNumber();
 
+        [DllImport("..\\..\\..\\Debug\\core.dll", EntryPoint = "CopyFileTo", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void CopyFileTo(string Source, string Destination);
+
+        [DllImport("..\\..\\..\\Debug\\core.dll", EntryPoint = "MoveFileTo", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MoveFileTo(string Source, string Destination);
+
+        [DllImport("..\\..\\..\\Debug\\core.dll", EntryPoint = "RenameFile", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void RenameFile(string Source, string Destination);
+
+        [DllImport("..\\..\\..\\Debug\\core.dll", EntryPoint = "NewFolder", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void NewFolder(string Name);
+
+        [DllImport("..\\..\\..\\Debug\\core.dll", EntryPoint = "NewFile", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void NewFile(string Name);
+
+        [DllImport("..\\..\\..\\Debug\\core.dll", EntryPoint = "RenameFile", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void RenameFile(string Name);
+
+        [DllImport("..\\..\\..\\Debug\\core.dll", EntryPoint = "DelFile", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void DeleteFile(string Name);
+
         public static string currentPath;
+
+        public static string tempPath;
+
+        public static bool copyFlag;
+
+        public static string tempFileName;
 
         public static List<FileInfo> fileInfos; // = new List<FileInfo>();
 
