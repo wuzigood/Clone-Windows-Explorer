@@ -96,11 +96,22 @@ namespace WpfApp1
         [DllImport("..\\..\\..\\Debug\\core.dll", EntryPoint = "DelFile", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DeleteFile(string Name);
 
+        [DllImport("..\\..\\..\\Debug\\core.dll", EntryPoint = "DeleteDirectory", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void DeleteDirectory(string Name);
+
+        [DllImport("..\\..\\..\\Debug\\core.dll", EntryPoint = "CopyDirectory", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void CopyDirectory(string Source, string Destination);
+
+        [DllImport("..\\..\\..\\Debug\\core.dll", EntryPoint = "IsDirectory", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool IsDirectory(string Name);
+
         public static string currentPath;
 
         public static string tempPath;
 
         public static bool copyFlag;
+
+        public static bool isDirectory;
 
         public static string tempFileName;
 

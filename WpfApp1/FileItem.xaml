@@ -18,7 +18,7 @@
             <ColumnDefinition Width="800"/>
             <ColumnDefinition Width="0*" />
         </Grid.ColumnDefinitions>
-        <Image  Margin="10,10,676,21" Source="{Binding ImagePath}">
+        <Image Name="ImageBox"  Margin="10,10,676,21" Source="{Binding ImagePath}">
         </Image>
         <TextBlock Name="FileName" TextAlignment="Center" HorizontalAlignment="Left" Margin="10,112,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="114"/>
         <TextBox Name="ReNameBox" Visibility="Hidden" KeyUp="ReNameBox_KeyUp" LostFocus="ReNameBox_LostFocus" HorizontalAlignment="Left" Height="16" Margin="10,112,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Width="114"/>

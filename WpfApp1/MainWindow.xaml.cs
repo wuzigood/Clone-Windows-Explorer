@@ -126,7 +126,12 @@ namespace WpfApp1
             }
             else if(header == "粘贴")
             {
-                if (FileManager.copyFlag)
+                if(FileManager.isDirectory && FileManager.copyFlag)
+                {
+                    FileManager.CopyDirectory(FileManager.tempPath, FileManager.currentPath + "\\" + FileManager.tempFileName);
+                    FileManager.isDirectory = false;
+                }
+                else if (FileManager.copyFlag)
                 {
                     FileManager.DeleteFile(FileManager.currentPath + "\\" + FileManager.tempFileName);
                     FileManager.CopyFileTo(FileManager.tempPath, FileManager.currentPath + "\\" + FileManager.tempFileName);

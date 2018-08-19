@@ -47,6 +47,10 @@ namespace WpfApp1
                     break;
                 case ("复制"):
                     FileManager.tempPath = FileManager.currentPath + "\\" + FileName.Text;
+                    if (FileManager.IsDirectory(FileManager.tempPath))
+                    {
+                        FileManager.isDirectory = true;
+                    }
                     FileManager.tempFileName = FileName.Text;
                     FileManager.copyFlag = true;
                     break;
@@ -56,7 +60,14 @@ namespace WpfApp1
                     FileManager.copyFlag = false;
                     break;
                 case ("删除"):
-                    FileManager.DeleteFile(FileManager.currentPath + "\\" + FileName.Text);
+                    if(FileManager.IsDirectory(FileManager.currentPath + "\\" + FileName.Text))
+                    {
+                        FileManager.DeleteDirectory(FileManager.currentPath + "\\" + FileName.Text);
+                    }
+                    else
+                    {
+                        FileManager.DeleteFile(FileManager.currentPath + "\\" + FileName.Text);
+                    }
                     MainWindow mainwin = Application.Current.MainWindow as MainWindow;
                     mainwin.UpdateDirectory();
                     break;

@@ -12,6 +12,14 @@ Cope with Classmate.
 
 4, USN File Search [1]
 
+### Build 
+
+Install Visual Studio , C# environment, C++ build tool, Windows API
+
+Download WPF Ribbon: https://www.microsoft.com/en-us/download/details.aspx?id=11877
+
+To Search File, You need **Run as Administrator**
+
 ### Reference
 
 [1] https://github.com/Artwalk/Fake-Everything
